@@ -25,6 +25,8 @@
     console.log('App listening on port 8080');
   });
 
+  module.exports = {app};
+
 
   // var newTodo = new Todo({
   //   text: 'We are just walking different paths.'

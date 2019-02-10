@@ -1,0 +1,28 @@
+1. MongoDB = PAhaAd
+2. Install from community server. (tgz file)
+3.  Robomongo -> robomongo.org (explore!)
+4. https://github.com/mongodb/node-mongodb-native -> Mongodb Node driver
+5. const {MongoClient} = require('mongodb'); -> shows obj Destructuring. Here, Mongoclient creates a variable
+    with the same name and also acquires the ame property of MongoClient from 'mongodb'.
+6. Find method to find all items in todos. toarray method to show them as an arr. A cursor(pointer) comes back from the find method.
+7. Expore cursor options here -> http://mongodb.github.io/node-mongodb-native/3.1/api/
+8. git repo cmds ->
+   * git init
+   * git status
+   * git add <file name>
+   * git commit -m <'Initial Commit'>
+   * create an empty repo on github(through browser), get some predefined cmds from github.
+   * Write them in the terminal and We are done.
+9. To update documents we need specific mongodb update operators, So explore them.
+10. https://mongoosejs.com/ -> explore
+11. body parser helps to send json files over the net to server.
+12. CRUD operations -> create, read, update, delete.
+13. To create we use POST operations.
+14. TEstS ->
+    *expect for assertions
+    *mocha for entire test
+    *supertest for express routes
+    **"scripts": {
+      "test": "mocha server/**/*.test.js",
+      "test-watch": "nodemon --exec 'npm test'" -> short form for nodemon
+    }. replace script with this to run the test.
