@@ -23,4 +23,6 @@ db.collection('Todos').find().count().then((count) => { //promises
 }, (err) => {
   console.log('Unable to connect to MongoDB server');
 });
+
+//db.close();
 });
