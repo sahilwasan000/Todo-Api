@@ -4,9 +4,21 @@ const request = require('supertest');
 const {app} = require('./../server.js');
 const {Todo} = require('./../models/todo');
 
+const todos = [{
+  text: 'Meet me in Galaxy 3.5'
+},{
+  text: 'Please come fast'
+}];
+
+// beforeEach((done) => {
+//   Todo.remove({}).then(() => done());
+// }); //to empty the db to run the test, as length is equated with 1 at 28.
+
 beforeEach((done) => {
-  Todo.remove({}).then(() => done());
-}); //to empty the db to run the test, as length is equated with 1 at 28.
+  Todo.remove({}).then(() => {
+    return Todo.insertMany(todos);
+  }).then(() => done());
+});
 
 describe('POST /todos', () => { //(type of req Document)
     it('should create a todo item', (done) => { //describe test
@@ -24,7 +36,7 @@ describe('POST /todos', () => { //(type of req Document)
           return done(err); //terminates the fx here only
         }
 
-        Todo.find().then((todos) => {
+        Todo.find({text}).then((todos) => {
           expect(todos.length).toBe(1);
           expect(todos[0].text).toBe(text);
           done();
@@ -43,9 +55,21 @@ describe('POST /todos', () => { //(type of req Document)
         }
 
         Todo.find().then((todos) => {
-          expect(todos.length).toBe(0);
+          expect(todos.length).toBe(2);
           done();
         }).catch((e) => done(e));
       });
     });
+});
+
+describe('GET /todos', () => {
+  it('should get all todos', (done) => {
+    request(app)
+      .get('/todos')
+      .expect(200)
+      .expect((res) =>{
+        expect(res.body.todos.length).toBe(2);
+      })
+      .end(done);
+  });
 });
