@@ -7,10 +7,10 @@ var Todo = mongoose.model('Todo',{
   },
   completed: {
     type: Boolean
-  },
+    },
   completedAt: {
     type: Number
-  }
+    }
 });
 
 module.exports = {Todo};
