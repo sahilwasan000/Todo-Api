@@ -1,3 +1,18 @@
+  var env = process.env.NODE_ENV || 'development';
+  console.log('env-*-*-*-*-*-*', env);
+
+  var {mongoose} = require('./db/mongoose');
+
+  if(env === 'development'){
+    process.env.PORT = 8080;
+    mongoose.connect('mongodb://localhost:27017/TodoApp');
+  }
+
+  else if(env === 'test'){
+    process.env.PORT = 8080;
+    mongoose.connect('mongodb://localhost:27017/TodoAppTest');
+  }
+
   const _ = require('lodash');
   const express = require('express');
   const bodyParser = require('body-parser');
