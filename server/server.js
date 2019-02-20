@@ -107,9 +107,20 @@
    })
  });
 
-
   app.listen(port, ()=> {
     console.log(`App listening on port ${port}`);
+  });
+
+// ----------Security and Authentication--------------//
+  app.post('/users', (req,res) => {
+    var body = _.pick(req.body, ['email', 'password']);
+    var user = new User(body);
+
+    user.save().then((user) => {
+      res.send(user);
+    }).catch((e) => {
+      res.status(400).send(e);
+    })
   });
 
   module.exports = {app};
