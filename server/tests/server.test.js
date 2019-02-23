@@ -10,7 +10,7 @@ const todos = [{
   text: 'Meet me in Galaxy 3.5'
 },{
   _id: new ObjectID(),
-  text: 'Please come fast'
+  text: 'Can we just meet yesterday?'
 }];
 
 // beforeEach((done) => {
