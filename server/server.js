@@ -20,7 +20,7 @@
 
   var {mongoose} = require('./db/mongoose');
   var {Todo} = require('./models/todo');
-  var {user} = require('./models/user');
+  var {User} = require('./models/user');
 
   const port = process.env.PORT || 8080;
 
@@ -112,7 +112,7 @@
   });
 
 // ----------Security and Authentication--------------//
-  app.post('/users', (req,res) => {
+  app.post('/users', (req, res) => {
     var body = _.pick(req.body, ['email', 'password']);
     var user = new User(body);
 
