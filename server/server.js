@@ -1,7 +1,7 @@
-  var env = process.env.NODE_ENV || 'development';
+var env = process.env.NODE_ENV || 'development';
   console.log('env-*-*-*-*-*-*', env);
 
-  var {mongoose} = require('./db/mongoose');
+var {mongoose} = require('./db/mongoose');
 
   if(env === 'development'){
     process.env.PORT = 8080;
@@ -13,22 +13,23 @@
     mongoose.connect('mongodb://localhost:27017/TodoAppTest');
   }
 
-  const _ = require('lodash');
-  const express = require('express');
-  const bodyParser = require('body-parser');
-  const {ObjectID} = require('mongodb'); //for requiring the id
+const _ = require('lodash');
+const express = require('express');
+const bodyParser = require('body-parser');
+const {ObjectID} = require('mongodb'); //for requiring the id
 
-  var {mongoose} = require('./db/mongoose');
-  var {Todo} = require('./models/todo');
-  var {User} = require('./models/user');
+var {mongoose} = require('./db/mongoose');
+var {Todo} = require('./models/todo');
+var {User} = require('./models/user');
+var {authenticate} = require('./middleware/authenticate');
 
-  const port = process.env.PORT || 8080;
+const port = process.env.PORT || 8080;
 
-  var app =  express();
+var app =  express();
 
-  app.use(bodyParser.json());
+app.use(bodyParser.json());
 
-  app.post('/todos', (req,res) => {
+app.post('/todos', (req,res) => {
     var todo = new Todo({
       text: req.body.text
     });
@@ -40,7 +41,7 @@
     });
   });
 
-  app.get('/todos', (req, res) => {
+app.get('/todos', (req, res) => {
     Todo.find().then((todos) => {
       res.send({todos});
     }, (e) => {
@@ -48,7 +49,7 @@
     })
   });
 
-  app.get('/todos/:id', (req,res) => {
+app.get('/todos/:id', (req,res) => {
     var id = req.params.id;
 
     //res.send(req.params); -> returns key-value pairs for id:data;
@@ -68,7 +69,7 @@
       res.status(404).send();
     });
 
-    app.delete('/todos/:id', (req, res) => { //remove id section.
+  app.delete('/todos/:id', (req, res) => { //remove id section.
       //get id
       var id = req.params.id;
       //validate id
@@ -125,6 +126,12 @@
       res.status(400).send(e);
     })
   });
+
+  //--------Adding Private Express Routes----------//
+
+app.get('/users/me', authenticate, (req, res) => {
+    res.send(req.user);
+});
 
   module.exports = {app};
 
