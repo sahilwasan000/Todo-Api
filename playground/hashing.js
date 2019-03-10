@@ -1,4 +1,4 @@
-const {SHA256} = require('crypto-js');
+const {SHA256} = require('crypto-js'); //bcrypt only support cb, dont support promises.
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
 
