@@ -217,6 +217,7 @@ it('should return validation error if it is invalid', (done) => {
       .expect(400)
       .end(done)
   });
+});
 
 // it('should not create user if email in use', (done) => {
 //     request(app)
@@ -228,4 +229,3 @@ it('should return validation error if it is invalid', (done) => {
 //       .expect(400)
 //       .end(done);
 //   }); //This test isnt working, check on it. Although, redundant entries arent allowed in the db.
-});
