@@ -74,6 +74,40 @@ UserSchema.statics.findByToken = function (token) {
     });
 };
 
+//-------------Log In Schema------------//
+UserSchema.statics.findByCredentials= function (email, password) {
+  var User = this;
+
+  return User.findOne({email}).then((user) => {
+    if(!user){
+      return Promise.reject();
+    }
+
+    return new Promise((resolve, reject) => {
+      bcrypt.compare(password, user.password, (err,res) => {// compare value of stored pass to input val.
+        if(res){
+          resolve(user);
+        }
+        else {
+          reject();
+        }
+      });
+    })
+  })
+};
+
+//-------------User Logout Schema------------//
+UserSchema.methods.removeToken = function (token) {
+  var user = this;
+
+  return user.update({
+    $pull: { //used to pull out a prperty out of an array.
+      tokens: {token}
+    }
+  });
+};
+
+//----------Make Something Happen Before a Function Execution------//
 UserSchema.pre('save', function (next) {
   var user = this;
 
@@ -93,3 +127,4 @@ UserSchema.pre('save', function (next) {
 var User = mongoose.model('User', UserSchema);
 
 module.exports = {User};
+w
