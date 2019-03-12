@@ -19,15 +19,21 @@ const users = [{
   }]
 }, {
   _id: userTwoId,
-  email: 'marksdown@gmail.com'
+  email: 'marksdown@gmail.com',
+  tokens: [{
+    access: 'auth',
+    token: jwt.sign({_id: userTwoId, access: 'auth'}, 'abcabc').toString()
+  }]
 }];
 
 const todos = [{
   _id: new ObjectID(),
-  text: 'Meet me in Galaxy 3.5'
+  text: 'Meet me in Galaxy 3.5',
+  _creator: userOneId
 },{
   _id: new ObjectID(),
-  text: 'Please come fast'
+  text: 'Please come fast',
+  _creator: userTwoId
 }];
 
 const populateTodos = (done) => {
