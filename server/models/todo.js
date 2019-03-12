@@ -10,7 +10,11 @@ var Todo = mongoose.model('Todo',{
       },
   completedAt: {
     type: Number
-      }
+    },
+    _creator: {
+      type: mongoose.Schema.Types.ObjectId,
+      required: true //schema to let todos get associated with a specific user.
+    }
 });
 
 module.exports = {Todo};
